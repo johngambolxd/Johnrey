@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Principal Sponsors | Wedding Invitation</title>
+</head>
+<body>
+  <p>Opening your Principal Sponsors invitation...</p>
+  <p><a id="invitationLink" href="./index.html?group=principal-sponsors">Continue to the invitation</a></p>
+  <script>
+    const invitationUrl = new URL('./index.html', window.location.href);
+    const guestParams = new URLSearchParams(window.location.search);
+    guestParams.set('group', 'principal-sponsors');
+    invitationUrl.search = guestParams.toString();
+    document.getElementById('invitationLink').href = invitationUrl.href;
+    window.location.replace(invitationUrl.href);
+  </script>
+</body>
+</html>

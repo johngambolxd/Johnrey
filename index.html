@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#91a9b6">
-  <title>John Rey & Remshel Daiyne | Wedding Invitation</title>
+  <title>John &amp; Remshel | Wedding Invitation</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italianno&family=Playfair+Display:wght@500;600;700&display=swap');
 
@@ -399,6 +399,10 @@
     .motif .blue { background: #819bb2; }
     .motif .navy { background: #172b4d; }
     .motif .silver { background: #c3c7ca; }
+    .motif .dark-grey { background: #34363b; border-color: #202124; }
+    .principal-sponsor-guide { margin-top: 14px; }
+    .principal-sponsor-guide p { margin: 0 0 7px; }
+    .principal-sponsor-guide b { color: #354f61; }
     .guest-guide__notice { margin: 14px 0 0; color: var(--wine); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .guest-role { position: relative; display: none; margin: 0 auto 25px; padding: 16px 12px 15px; border-top: 1px solid rgba(201, 149, 82, .4); border-bottom: 1px solid rgba(201, 149, 82, .4); color: #685055; }
     .guest-role.is-visible { display: block; }
@@ -414,6 +418,14 @@
     .note-page__policy { margin: 27px auto 0; padding: 17px 12px; border-top: 1px solid rgba(139, 151, 157, .65); border-bottom: 1px solid rgba(139, 151, 157, .65); color: #354f61; font-family: 'Playfair Display', serif; font-size: 12px; line-height: 1.7; }
     .note-page__policy strong { display: block; color: #344f61; font-size: 12px; letter-spacing: .07em; }
     .note-page__policy em { display: block; margin: 5px 0; color: #58788e; font-size: 14px; font-style: normal; font-weight: 700; }
+    .sponsor-attire { position: relative; margin: 24px auto 0; padding-top: 20px; border-top: 1px solid rgba(139, 151, 157, .48); }
+    .sponsor-attire[hidden] { display: none; }
+    .sponsor-attire__title { margin: 0 0 15px; color: #58788e; font-family: 'Playfair Display', serif; font-size: 18px; }
+    .sponsor-attire__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .sponsor-attire figure { min-width: 0; margin: 0; }
+    .sponsor-attire img { display: block; width: 100%; height: 230px; border: 1px solid #aeb8bd; object-fit: cover; object-position: center 28%; background: #d4d4d5; }
+    .sponsor-attire figcaption { margin-top: 7px; color: #354f61; font-family: 'Playfair Display', serif; font-size: 12px; line-height: 1.5; }
+    .sponsor-attire figcaption strong { display: block; color: #58788e; }
     .page-nav { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 28px auto 0; padding-top: 15px; border-top: 1px solid rgba(139, 151, 157, .36); }
     .page-nav button { border: 0; padding: 8px 0; color: #58788e; background: transparent; cursor: pointer; font-family: 'Playfair Display', serif; font-size: 13px; }
     .page-nav button:hover { color: #263f51; text-decoration: underline; text-underline-offset: 4px; }
@@ -485,12 +497,15 @@
       to { opacity: 1; transform: perspective(1400px) translateY(0) rotateX(1deg) scale(1); }
     }
 
-    .sound-toggle { position: absolute; right: 38px; top: 29px; z-index: 8; display: flex; align-items: center; gap: 8px; border: 0; color: rgba(255, 239, 215, .7); background: transparent; cursor: pointer; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .sound-toggle { position: absolute; right: 38px; top: 29px; z-index: 8; display: flex; align-items: center; gap: 8px; border: 0; color: rgba(255, 239, 215, .82); background: transparent; cursor: pointer; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
     .sound-toggle span { display: inline-flex; gap: 2px; align-items: end; height: 13px; }
     .sound-toggle i { display: block; width: 2px; height: 6px; background: currentColor; }
     .sound-toggle i:nth-child(2) { height: 12px; }
     .sound-toggle i:nth-child(3) { height: 8px; }
     .sound-toggle.is-muted i { height: 2px; }
+    .sound-toggle:disabled { cursor: not-allowed; opacity: .7; }
+    .scene.is-principal-sponsors .envelope__letter-title { font-size: 9px; letter-spacing: .12em; }
+    .scene.is-principal-sponsors #notePageTitle { font-size: clamp(23px, 4vw, 34px); }
 
     @media (max-width: 580px) {
       .date-stamp { top: 25px; left: 22px; font-size: 9px; }
@@ -505,6 +520,9 @@
       .invitation__paper::after { inset: 14px; }
       .intro__monogram { margin-bottom: 22px; }
       .intro::before { inset: -32px -18px; outline-offset: 7px; }
+      .sponsor-attire__grid { gap: 9px; }
+      .sponsor-attire img { height: 180px; }
+      .sponsor-attire figcaption { font-size: 11px; }
     }
 
     /* Final curtain treatment: a weighted velvet stage curtain with a visible rail and tiebacks. */
@@ -689,13 +707,14 @@
   <main class="scene" id="scene">
     <div class="ambient" aria-hidden="true"></div>
     <div class="date-stamp">April 26, 2027 · A new chapter</div>
-    <button class="sound-toggle" id="soundToggle" type="button" aria-label="Toggle ambient sound" aria-pressed="false">
-      <span aria-hidden="true"><i></i><i></i><i></i></span> sound
+    <audio id="weddingMusic" preload="none" loop src="Tahanan - El Manu Clyde Pianist (Senti Piano Cover).mp3"></audio>
+    <button class="sound-toggle" id="soundToggle" type="button" aria-label="Play Tahanan piano version" aria-pressed="false" title="Play Tahanan piano version">
+      <span aria-hidden="true"><i></i><i></i><i></i></span> play music
     </button>
 
     <section class="intro" aria-label="Open wedding invitation">
       <p class="intro__eyebrow">A little something for you</p>
-      <h1>John Rey &amp; Remshel Daiyne</h1>
+      <h1>John &amp; Remshel</h1>
       <p class="intro__note">With love, please open your invitation</p>
       <button class="envelope" id="openButton" type="button" aria-label="Open your wedding invitation" aria-expanded="false">
         <span class="envelope__back" aria-hidden="true"></span>
@@ -715,34 +734,43 @@
         <span class="ornament ornament--tr" aria-hidden="true">❧</span>
         <span class="ornament ornament--bl" aria-hidden="true">❧</span>
         <span class="ornament ornament--br" aria-hidden="true">❧</span>
-        <div class="paper-logo" aria-label="John Rey and Remshel Daiyne monogram">
+        <div class="paper-logo" aria-label="John and Remshel monogram">
           <svg class="monogram-svg" viewBox="0 0 150 160" role="img" aria-label="Intertwined J and R">
             <path d="M78 48 C78 23 93 9 114 14 C136 19 143 38 128 52 C117 62 97 60 78 56 C88 75 104 99 130 117 M78 48 C78 72 75 101 66 123 C58 143 40 153 23 145 C8 138 8 118 20 107 C30 98 44 100 51 111" />
           </svg>
         </div>
         <p class="invitation__eyebrow">Together with their families</p>
-        <h2 id="invitation-title">John Rey<br>&amp; Remshel Daiyne</h2>
+        <h2 id="invitation-title">John &amp; Remshel</h2>
         <p class="invitation__subtitle">request the pleasure of your company<br>as they celebrate their wedding</p>
         <section class="guest-role" id="guestRole" aria-label="Personal invitation">
           <p class="guest-role__name" id="guestName"></p>
           <p class="guest-role__label">You are invited as <strong id="guestPart"></strong></p>
         </section>
         <div class="details">
-          <div class="detail"><span class="detail__label">Monday</span><strong>April 26</strong><small>Two thousand twenty-seven · 4:00 PM</small></div>
+          <div class="detail"><span class="detail__label">Monday</span><strong>April 26</strong><small>Two thousand twenty-seven</small></div>
           <div class="divider" aria-hidden="true"></div>
-          <div class="detail"><span class="detail__label">Ceremony</span><strong>Our Lady of Montserrat Parish</strong><small>Gran Plains, Jaro</small></div>
+          <div class="detail"><span class="detail__label">Ceremony</span><strong>Our Lady of Montserrat Parish</strong><small>Call time: 3:15 PM · Starts at 4:00 PM</small><small>Gran Plains, Jaro</small></div>
           <div class="divider" aria-hidden="true"></div>
           <div class="detail"><span class="detail__label">Reception</span><strong>District 21 Hotel</strong><small>Following the ceremony · 6:30 PM</small></div>
         </div>
         <p class="rsvp"><b>We look forward to celebrating with you</b><br>Please join us for this special day</p>
         <section class="guest-guide" aria-label="Guest dress code and color motif">
-          <p class="guest-guide__title">For Guests</p>
-          <p class="guest-guide__dress"><b>Dress code:</b> Semi Formal</p>
-          <div class="motif" aria-label="Color motif: muted sage or eucalyptus green, dusty blue, deep navy blue, and silver or argento">
-            <span><i class="sage" aria-hidden="true"></i>Muted Sage / Eucalyptus Green</span>
-            <span><i class="blue" aria-hidden="true"></i>Dusty Blue</span>
-            <span><i class="navy" aria-hidden="true"></i>Deep Navy Blue</span>
-            <span><i class="silver" aria-hidden="true"></i>Silver / Argento</span>
+          <p class="guest-guide__title" id="guestGuideTitle">For Guests</p>
+          <div id="regularGuestGuide">
+            <p class="guest-guide__dress"><b>Dress code:</b> Semi Formal</p>
+            <div class="motif" aria-label="Color motif: muted sage or eucalyptus green, dusty blue, deep navy blue, and silver or argento">
+              <span><i class="sage" aria-hidden="true"></i>Muted Sage / Eucalyptus Green</span>
+              <span><i class="blue" aria-hidden="true"></i>Dusty Blue</span>
+              <span><i class="navy" aria-hidden="true"></i>Deep Navy Blue</span>
+              <span><i class="silver" aria-hidden="true"></i>Silver / Argento</span>
+            </div>
+          </div>
+          <div class="principal-sponsor-guide" id="principalSponsorGuide" hidden>
+            <p><b>Ninang:</b> Formal Attire</p>
+            <p><b>Ninong:</b> Tuxedo</p>
+            <div class="motif" aria-label="Color motif: dark grey">
+              <span><i class="dark-grey" aria-hidden="true"></i>Dark Grey</span>
+            </div>
           </div>
           <p class="guest-guide__notice">Strictly no white allowed</p>
         </section>
@@ -757,7 +785,7 @@
         <span class="ornament ornament--tr" aria-hidden="true">&#10087;</span>
         <span class="ornament ornament--bl" aria-hidden="true">&#10087;</span>
         <span class="ornament ornament--br" aria-hidden="true">&#10087;</span>
-        <div class="paper-logo" aria-label="John Rey and Remshel Daiyne monogram">
+        <div class="paper-logo" aria-label="John and Remshel monogram">
           <svg class="monogram-svg" viewBox="0 0 150 160" role="img" aria-label="Intertwined J and R">
             <path d="M78 48 C78 23 93 9 114 14 C136 19 143 38 128 52 C117 62 97 60 78 56 C88 75 104 99 130 117 M78 48 C78 72 75 101 66 123 C58 143 40 153 23 145 C8 138 8 118 20 107 C30 98 44 100 51 111" />
           </svg>
@@ -772,6 +800,19 @@
           <p class="note-page__thanks"><strong>Thank you for being part of our beginning.</strong></p>
         </div>
         <p class="note-page__policy">Due to limited seating and venue arrangements,<strong>this invitation is strictly for the named guest(s) only.</strong><em>NO INVITATION, NO ENTRY.</em>We sincerely appreciate your understanding.</p>
+        <section class="sponsor-attire" id="sponsorAttire" aria-labelledby="sponsorAttireTitle" hidden>
+          <h3 class="sponsor-attire__title" id="sponsorAttireTitle">Principal Sponsors Attire</h3>
+          <div class="sponsor-attire__grid">
+            <figure>
+              <img src="1cdb222d-1628-4f73-b48c-2729dbbe5327.jpg" alt="Dark grey formal gown reference for Ninang">
+              <figcaption><strong>Ninang</strong>Formal Attire · Dark Grey</figcaption>
+            </figure>
+            <figure>
+              <img src="4844ef14-5ac2-48ea-b34c-5a7490a6eb61.jpg" alt="Dark grey tuxedo reference for Ninong">
+              <figcaption><strong>Ninong</strong>Tuxedo · Dark Grey</figcaption>
+            </figure>
+          </div>
+        </section>
         <nav class="page-nav" aria-label="Invitation pages">
           <button id="previousInvitationPage" type="button" aria-controls="invitationPageOne"><span aria-hidden="true">&larr;</span> Previous page</button>
           <span class="page-nav__count">02 / 02</span>
@@ -783,6 +824,7 @@
     const scene = document.getElementById('scene');
     const openButton = document.getElementById('openButton');
     const soundToggle = document.getElementById('soundToggle');
+    const weddingMusic = document.getElementById('weddingMusic');
     const guestRole = document.getElementById('guestRole');
     const guestName = document.getElementById('guestName');
     const guestPart = document.getElementById('guestPart');
@@ -790,10 +832,26 @@
     const invitationPageTwo = document.getElementById('invitationPageTwo');
     const nextInvitationPage = document.getElementById('nextInvitationPage');
     const previousInvitationPage = document.getElementById('previousInvitationPage');
+    const regularGuestGuide = document.getElementById('regularGuestGuide');
+    const principalSponsorGuide = document.getElementById('principalSponsorGuide');
+    const guestGuideTitle = document.getElementById('guestGuideTitle');
+    const sponsorAttire = document.getElementById('sponsorAttire');
 
     const guestParams = new URLSearchParams(window.location.search);
     const personalizedName = guestParams.get('name') || guestParams.get('guest');
     const personalizedRole = guestParams.get('role') || guestParams.get('part');
+    const isPrincipalSponsors = ['principal-sponsors', 'sponsors'].includes((guestParams.get('group') || guestParams.get('audience') || '').toLowerCase());
+    if (isPrincipalSponsors) {
+      scene.classList.add('is-principal-sponsors');
+      document.querySelector('.intro__eyebrow').textContent = 'A special invitation for our Principal Sponsors';
+      document.querySelector('.envelope__letter-title').textContent = 'Principal Sponsors';
+      document.querySelector('#notePageTitle').textContent = 'A note for our Principal Sponsors';
+      document.querySelector('.guest-role__label').firstChild.textContent = 'We are honored to invite you as ';
+      regularGuestGuide.hidden = true;
+      principalSponsorGuide.hidden = false;
+      guestGuideTitle.textContent = 'For Principal Sponsors';
+      sponsorAttire.hidden = false;
+    }
     if (personalizedName && personalizedRole) {
       guestName.textContent = personalizedName.trim();
       guestPart.textContent = personalizedRole.trim();
@@ -825,10 +883,33 @@
       openButton.setAttribute('aria-expanded', 'true');
     });
 
-    soundToggle.addEventListener('click', () => {
-      const isMuted = soundToggle.classList.toggle('is-muted');
-      soundToggle.setAttribute('aria-pressed', String(!isMuted));
-      soundToggle.lastChild.textContent = isMuted ? ' muted' : ' sound';
+    soundToggle.addEventListener('click', async () => {
+      if (weddingMusic.paused) {
+        try {
+          await weddingMusic.play();
+          soundToggle.classList.remove('is-muted');
+          soundToggle.setAttribute('aria-pressed', 'true');
+          soundToggle.setAttribute('aria-label', 'Pause Tahanan piano version');
+          soundToggle.title = 'Pause Tahanan piano version';
+          soundToggle.lastChild.textContent = ' pause music';
+        } catch {
+          soundToggle.setAttribute('aria-label', 'Tahanan piano audio file is not available');
+          soundToggle.title = 'Check that the Tahanan piano audio file is uploaded';
+          soundToggle.lastChild.textContent = ' add music file';
+        }
+      } else {
+        weddingMusic.pause();
+        soundToggle.classList.add('is-muted');
+        soundToggle.setAttribute('aria-pressed', 'false');
+        soundToggle.setAttribute('aria-label', 'Play Tahanan piano version');
+        soundToggle.title = 'Play Tahanan piano version';
+        soundToggle.lastChild.textContent = ' play music';
+      }
+    });
+    weddingMusic.addEventListener('ended', () => {
+      soundToggle.classList.add('is-muted');
+      soundToggle.setAttribute('aria-pressed', 'false');
+      soundToggle.lastChild.textContent = ' play music';
     });
   </script>
 </body>
