@@ -765,7 +765,7 @@
         </section>
         <p class="footer-note">Dinner, dancing &amp; a little bit of magic</p>
         <nav class="page-nav" aria-label="Invitation pages">
-          <span class="page-nav__count">01 / 02</span>
+          <span class="page-nav__count">01 / 03</span>
           <button id="nextInvitationPage" type="button" aria-controls="invitationPageTwo">Next page <span aria-hidden="true">&rarr;</span></button>
         </nav>
       </article>
@@ -788,9 +788,8 @@
           <p>Your thoughtfulness and generosity will be treasured and put toward the life we are building together.</p>
           <p class="note-page__thanks"><strong>Thank you for being part of our beginning.</strong></p>
         </div>
-        <p class="note-page__policy">Due to limited seating and venue arrangements,<strong>this invitation is strictly for the named guest(s) only.</strong><em>NO INVITATION, NO ENTRY.</em>We sincerely appreciate your understanding.</p>
         <section class="sponsor-attire" id="sponsorAttire" aria-labelledby="sponsorAttireTitle" hidden>
-          <h3 class="sponsor-attire__title" id="sponsorAttireTitle">Principal Sponsors Attire</h3>
+          <h3 class="sponsor-attire__title" id="sponsorAttireTitle">Principal Sponsors Color Attire</h3>
           <div class="sponsor-attire__grid">
             <figure>
               <img src="1cdb222d-1628-4f73-b48c-2729dbbe5327.jpg" alt="Dark grey formal gown reference for Ninang">
@@ -804,7 +803,30 @@
         </section>
         <nav class="page-nav" aria-label="Invitation pages">
           <button id="previousInvitationPage" type="button" aria-controls="invitationPageOne"><span aria-hidden="true">&larr;</span> Previous page</button>
-          <span class="page-nav__count">02 / 02</span>
+          <span class="page-nav__count">02 / 03</span>
+          <button id="nextInvitationPageTwo" type="button" aria-controls="invitationPageThree">Next page <span aria-hidden="true">&rarr;</span></button>
+        </nav>
+      </article>
+      <article class="invitation__paper note-page" id="invitationPageThree" aria-labelledby="guestNoteTitle" aria-label="Invitation page three" hidden>
+        <span class="ornament ornament--tl" aria-hidden="true">&#10087;</span>
+        <span class="ornament ornament--tr" aria-hidden="true">&#10087;</span>
+        <span class="ornament ornament--bl" aria-hidden="true">&#10087;</span>
+        <span class="ornament ornament--br" aria-hidden="true">&#10087;</span>
+        <div class="paper-logo" aria-label="John and Remshel monogram">
+          <svg class="monogram-svg" viewBox="0 0 150 160" role="img" aria-label="Intertwined J and R">
+            <path d="M78 48 C78 23 93 9 114 14 C136 19 143 38 128 52 C117 62 97 60 78 56 C88 75 104 99 130 117 M78 48 C78 72 75 101 66 123 C58 143 40 153 23 145 C8 138 8 118 20 107 C30 98 44 100 51 111" />
+          </svg>
+        </div>
+        <p class="invitation__eyebrow">A KIND NOTE TO OUR GUESTS</p>
+        <div class="note-page__copy">
+          <p>Due to limited seating and venue arrangements, we kindly ask that this invitation be reserved exclusively for the named guest(s). NO INVITATION, NO ENTRY. Please note that plus-ones are not permitted unless specifically named on the invitation.</p>
+          <p>To help us create the celebration we have planned, we kindly request that no children under the age of 16 attend the reception. Guests aged 16 and above are warmly welcome to join us.</p>
+          <p>Please note that while guests aged 16–17 are welcome to attend, alcoholic beverages will not be served to anyone under 18 years of age.</p>
+          <p>We truly appreciate your kind understanding and cooperation as we celebrate this special occasion together.</p>
+        </div>
+        <nav class="page-nav" aria-label="Invitation pages">
+          <button id="previousInvitationPageThree" type="button" aria-controls="invitationPageTwo"><span aria-hidden="true">&larr;</span> Previous page</button>
+          <span class="page-nav__count">03 / 03</span>
         </nav>
       </article>
     </section>
@@ -818,8 +840,11 @@
     const guestPart = document.getElementById('guestPart');
     const invitationPageOne = document.getElementById('invitationPageOne');
     const invitationPageTwo = document.getElementById('invitationPageTwo');
+    const invitationPageThree = document.getElementById('invitationPageThree');
     const nextInvitationPage = document.getElementById('nextInvitationPage');
     const previousInvitationPage = document.getElementById('previousInvitationPage');
+    const nextInvitationPageTwo = document.getElementById('nextInvitationPageTwo');
+    const previousInvitationPageThree = document.getElementById('previousInvitationPageThree');
     const regularGuestGuide = document.getElementById('regularGuestGuide');
     const principalSponsorGuide = document.getElementById('principalSponsorGuide');
     const guestGuideTitle = document.getElementById('guestGuideTitle');
@@ -855,19 +880,17 @@
       }
     }
 
-    nextInvitationPage.addEventListener('click', () => {
-      invitationPageOne.hidden = true;
-      invitationPageTwo.hidden = false;
-      invitationPageTwo.focus({ preventScroll: true });
+    function showInvitationPage(pageToShow, pageToHide) {
+      pageToHide.hidden = true;
+      pageToShow.hidden = false;
+      pageToShow.focus({ preventScroll: true });
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    }
 
-    previousInvitationPage.addEventListener('click', () => {
-      invitationPageTwo.hidden = true;
-      invitationPageOne.hidden = false;
-      invitationPageOne.focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    nextInvitationPage.addEventListener('click', () => showInvitationPage(invitationPageTwo, invitationPageOne));
+    previousInvitationPage.addEventListener('click', () => showInvitationPage(invitationPageOne, invitationPageTwo));
+    nextInvitationPageTwo.addEventListener('click', () => showInvitationPage(invitationPageThree, invitationPageTwo));
+    previousInvitationPageThree.addEventListener('click', () => showInvitationPage(invitationPageTwo, invitationPageThree));
 
     openButton.addEventListener('click', () => {
       if (scene.classList.contains('is-open') || scene.classList.contains('is-opening')) return;
