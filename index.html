@@ -497,19 +497,12 @@
       to { opacity: 1; transform: perspective(1400px) translateY(0) rotateX(1deg) scale(1); }
     }
 
-    .sound-toggle { position: absolute; right: 38px; top: 29px; z-index: 8; display: flex; align-items: center; gap: 8px; border: 0; color: rgba(255, 239, 215, .82); background: transparent; cursor: pointer; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
-    .sound-toggle span { display: inline-flex; gap: 2px; align-items: end; height: 13px; }
-    .sound-toggle i { display: block; width: 2px; height: 6px; background: currentColor; }
-    .sound-toggle i:nth-child(2) { height: 12px; }
-    .sound-toggle i:nth-child(3) { height: 8px; }
-    .sound-toggle.is-muted i { height: 2px; }
-    .sound-toggle:disabled { cursor: not-allowed; opacity: .7; }
+    .sound-toggle { display: none; }
     .scene.is-principal-sponsors .envelope__letter-title { font-size: 9px; letter-spacing: .12em; }
     .scene.is-principal-sponsors #notePageTitle { font-size: clamp(23px, 4vw, 34px); }
 
     @media (max-width: 580px) {
       .date-stamp { top: 25px; left: 22px; font-size: 9px; }
-      .sound-toggle { top: 22px; right: 21px; font-size: 9px; }
       .details { gap: 10px; }
       .details { grid-template-columns: 1fr; gap: 17px; }
       .detail strong { font-size: 14px; }
@@ -708,10 +701,6 @@
     <div class="ambient" aria-hidden="true"></div>
     <div class="date-stamp">April 26, 2027 · A new chapter</div>
     <audio id="weddingMusic" preload="none" loop src="Tahanan - El Manu Clyde Pianist (Senti Piano Cover).mp3"></audio>
-    <button class="sound-toggle" id="soundToggle" type="button" aria-label="Play Tahanan piano version" aria-pressed="false" title="Play Tahanan piano version">
-      <span aria-hidden="true"><i></i><i></i><i></i></span> play music
-    </button>
-
     <section class="intro" aria-label="Open wedding invitation">
       <p class="intro__eyebrow">A little something for you</p>
       <h1>John &amp; Remshel</h1>
@@ -823,7 +812,6 @@
   <script>
     const scene = document.getElementById('scene');
     const openButton = document.getElementById('openButton');
-    const soundToggle = document.getElementById('soundToggle');
     const weddingMusic = document.getElementById('weddingMusic');
     const guestRole = document.getElementById('guestRole');
     const guestName = document.getElementById('guestName');
@@ -858,6 +846,15 @@
       guestRole.classList.add('is-visible');
     }
 
+    async function startWeddingMusic() {
+      try {
+        await weddingMusic.play();
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
     nextInvitationPage.addEventListener('click', () => {
       invitationPageOne.hidden = true;
       invitationPageTwo.hidden = false;
@@ -874,6 +871,7 @@
 
     openButton.addEventListener('click', () => {
       if (scene.classList.contains('is-open') || scene.classList.contains('is-opening')) return;
+      startWeddingMusic();
       scene.classList.add('is-opening');
       openButton.disabled = true;
       window.setTimeout(() => {
@@ -883,34 +881,6 @@
       openButton.setAttribute('aria-expanded', 'true');
     });
 
-    soundToggle.addEventListener('click', async () => {
-      if (weddingMusic.paused) {
-        try {
-          await weddingMusic.play();
-          soundToggle.classList.remove('is-muted');
-          soundToggle.setAttribute('aria-pressed', 'true');
-          soundToggle.setAttribute('aria-label', 'Pause Tahanan piano version');
-          soundToggle.title = 'Pause Tahanan piano version';
-          soundToggle.lastChild.textContent = ' pause music';
-        } catch {
-          soundToggle.setAttribute('aria-label', 'Tahanan piano audio file is not available');
-          soundToggle.title = 'Check that the Tahanan piano audio file is uploaded';
-          soundToggle.lastChild.textContent = ' add music file';
-        }
-      } else {
-        weddingMusic.pause();
-        soundToggle.classList.add('is-muted');
-        soundToggle.setAttribute('aria-pressed', 'false');
-        soundToggle.setAttribute('aria-label', 'Play Tahanan piano version');
-        soundToggle.title = 'Play Tahanan piano version';
-        soundToggle.lastChild.textContent = ' play music';
-      }
-    });
-    weddingMusic.addEventListener('ended', () => {
-      soundToggle.classList.add('is-muted');
-      soundToggle.setAttribute('aria-pressed', 'false');
-      soundToggle.lastChild.textContent = ' play music';
-    });
   </script>
 </body>
 </html>
