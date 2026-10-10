@@ -390,6 +390,15 @@
     .rsvp b { color: var(--wine); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
     .guest-guide { position: relative; margin: 27px auto 0; padding-top: 21px; border-top: 1px solid rgba(201, 149, 82, .25); color: #685055; font-size: 12px; line-height: 1.6; }
     .guest-guide__title { margin: 0 0 8px; color: var(--wine); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+    .guest-guide__title--sponsor {
+      margin: 0 0 10px;
+      color: var(--wine);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+    }
     .guest-guide__dress { margin: 0; }
     .guest-guide__dress b { color: var(--rose); font-weight: 600; }
     .section-rule { width: 100%; height: 1px; margin: 18px auto; background: linear-gradient(to right, transparent, rgba(201, 149, 82, .65), transparent); }
@@ -756,20 +765,17 @@
             </div>
           </div>
           <div class="principal-sponsor-guide" id="principalSponsorGuide" hidden>
-            <p class="guest-guide__dress"><b>Dress code:</b> Formal Attire for Ninang · Tuxedo for Ninong</p>
-            <div class="motif" aria-label="Color motif: dark grey">
-              <span><i class="dark-grey" aria-hidden="true"></i>Dark Grey</span>
-            </div>
+            <p class="guest-guide__dress"><b>Color Theme:</b> Dark Grey</p>
+            <p class="guest-guide__dress"><b>Dress Code:</b></p>
             <section class="sponsor-attire" id="sponsorAttire" aria-labelledby="sponsorAttireTitle" hidden>
-              <h3 class="sponsor-attire__title" id="sponsorAttireTitle">Principal Sponsors Color Attire</h3>
               <div class="sponsor-attire__grid">
                 <figure>
                   <img src="1cdb222d-1628-4f73-b48c-2729dbbe5327.jpg" alt="Dark grey formal gown reference for Ninang">
-                  <figcaption><strong>Ninang</strong>Formal Attire · Dark Grey</figcaption>
+                  <figcaption><strong>Ninang</strong>Long Formal Gown</figcaption>
                 </figure>
                 <figure>
                   <img src="4844ef14-5ac2-48ea-b34c-5a7490a6eb61.jpg" alt="Dark grey tuxedo reference for Ninong">
-                  <figcaption><strong>Ninong</strong>Tuxedo · Dark Grey</figcaption>
+                  <figcaption><strong>Ninong</strong>Tuxedo w/ black necktie</figcaption>
                 </figure>
               </div>
             </section>
@@ -825,6 +831,7 @@
       regularGuestGuide.hidden = true;
       principalSponsorGuide.hidden = false;
       guestGuideTitle.textContent = 'For Principal Sponsors';
+      guestGuideTitle.classList.add('guest-guide__title--sponsor');
       sponsorAttire.hidden = false;
     }
 
