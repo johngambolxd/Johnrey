@@ -392,6 +392,7 @@
     .guest-guide__title { margin: 0 0 8px; color: var(--wine); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
     .guest-guide__dress { margin: 0; }
     .guest-guide__dress b { color: var(--rose); font-weight: 600; }
+    .section-rule { width: 100%; height: 1px; margin: 18px auto; background: linear-gradient(to right, transparent, rgba(201, 149, 82, .65), transparent); }
     .motif { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 14px; margin: 14px 0 0; }
     .motif span { display: inline-flex; align-items: center; gap: 6px; color: #69585b; font-size: 11px; }
     .motif i { display: inline-block; width: 13px; height: 13px; border: 1px solid rgba(38, 50, 55, .2); border-radius: 50%; }
@@ -755,15 +756,28 @@
             </div>
           </div>
           <div class="principal-sponsor-guide" id="principalSponsorGuide" hidden>
-            <p><b>Ninang:</b> Formal Attire</p>
-            <p><b>Ninong:</b> Tuxedo</p>
+            <p class="guest-guide__dress"><b>Dress code:</b> Formal Attire for Ninang · Tuxedo for Ninong</p>
             <div class="motif" aria-label="Color motif: dark grey">
               <span><i class="dark-grey" aria-hidden="true"></i>Dark Grey</span>
             </div>
+            <section class="sponsor-attire" id="sponsorAttire" aria-labelledby="sponsorAttireTitle" hidden>
+              <h3 class="sponsor-attire__title" id="sponsorAttireTitle">Principal Sponsors Color Attire</h3>
+              <div class="sponsor-attire__grid">
+                <figure>
+                  <img src="1cdb222d-1628-4f73-b48c-2729dbbe5327.jpg" alt="Dark grey formal gown reference for Ninang">
+                  <figcaption><strong>Ninang</strong>Formal Attire · Dark Grey</figcaption>
+                </figure>
+                <figure>
+                  <img src="4844ef14-5ac2-48ea-b34c-5a7490a6eb61.jpg" alt="Dark grey tuxedo reference for Ninong">
+                  <figcaption><strong>Ninong</strong>Tuxedo · Dark Grey</figcaption>
+                </figure>
+              </div>
+            </section>
           </div>
-          <p class="guest-guide__notice">Strictly no white allowed</p>
         </section>
+        <div class="section-rule" aria-hidden="true"></div>
         <p class="footer-note">Dinner, dancing &amp; a little bit of magic</p>
+        <div class="section-rule" aria-hidden="true"></div>
 
         <div class="note-page__copy">
           <p class="note-page__thanks"><strong>Your presence is our present.</strong></p>
@@ -774,25 +788,14 @@
           <p><strong>Thank you for being part of our beginning.</strong></p>
         </div>
 
-        <section class="sponsor-attire" id="sponsorAttire" aria-labelledby="sponsorAttireTitle" hidden>
-          <h3 class="sponsor-attire__title" id="sponsorAttireTitle">Principal Sponsors Color Attire</h3>
-          <div class="sponsor-attire__grid">
-            <figure>
-              <img src="1cdb222d-1628-4f73-b48c-2729dbbe5327.jpg" alt="Dark grey formal gown reference for Ninang">
-              <figcaption><strong>Ninang</strong>Formal Attire · Dark Grey</figcaption>
-            </figure>
-            <figure>
-              <img src="4844ef14-5ac2-48ea-b34c-5a7490a6eb61.jpg" alt="Dark grey tuxedo reference for Ninong">
-              <figcaption><strong>Ninong</strong>Tuxedo · Dark Grey</figcaption>
-            </figure>
-          </div>
-        </section>
-
         <div class="note-page__policy" role="note">
           <strong>Important to know</strong>
           <em>We’re delighted to celebrate with you.</em>
           Due to limited seating and venue arrangements, the invitation is reserved exclusively for the named guest(s). No invitation, no entry. Plus-ones are not permitted unless named on the invitation.
+          <br><br>
+          To help us create the celebration we have planned, we have implemented a strict no-under-16 policy for the reception due to alcohol being served. Guests who are 16 and 17 years old are welcome to attend and celebrate with us, but please note that alcohol will only be served to guests who are 18 years of age and above.
         </div>
+        <p class="guest-guide__notice">Strictly no white allowed</p>
       </article>
     </section>
   </main>
