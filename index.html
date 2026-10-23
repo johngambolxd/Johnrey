@@ -410,6 +410,10 @@
     .motif .navy { background: #172b4d; }
     .motif .silver { background: #c3c7ca; }
     .motif .dark-grey { background: #34363b; border-color: #202124; }
+    .motif .light-yellow { background: #f2dfa0; border-color: #c9b66f; }
+    .guest-attire { margin: 14px auto 0; }
+    .guest-attire img { display: block; width: min(100%, 300px); aspect-ratio: 2 / 3; margin: 0 auto; border: 1px solid rgba(139, 151, 157, .48); object-fit: contain; background: #fff; }
+    .guest-attire figcaption { margin-top: 7px; color: #354f61; font-family: 'Playfair Display', serif; font-size: 12px; }
     .principal-sponsor-guide { margin-top: 14px; }
     .principal-sponsor-guide p { margin: 0 0 7px; }
     .principal-sponsor-guide b { color: #354f61; }
@@ -757,12 +761,14 @@
           <p class="guest-guide__title" id="guestGuideTitle">For Guests</p>
           <div id="regularGuestGuide">
             <p class="guest-guide__dress"><b>Dress code:</b> Semi Formal</p>
-            <div class="motif" aria-label="Color motif: muted sage or eucalyptus green, dusty blue, deep navy blue, and silver or argento">
-              <span><i class="sage" aria-hidden="true"></i>Muted Sage / Eucalyptus Green</span>
-              <span><i class="blue" aria-hidden="true"></i>Dusty Blue</span>
-              <span><i class="navy" aria-hidden="true"></i>Deep Navy Blue</span>
-              <span><i class="silver" aria-hidden="true"></i>Silver / Argento</span>
+            <div class="motif" aria-label="Color motif: light yellow">
+              <span><i class="light-yellow" aria-hidden="true"></i>Light Yellow</span>
             </div>
+            <figure class="guest-attire" id="guestAttire" hidden>
+              <img src="4cd0134a-f294-4b95-9431-729ed39136f9.jpg" alt="Semi-formal outfit inspiration in light yellow: a yellow shirt with dark trousers and a yellow dress">
+              <figcaption>Suggested semi-formal attire</figcaption>
+            </figure>
+            <p class="guest-guide__notice">Strictly no white allowed</p>
           </div>
           <div class="principal-sponsor-guide" id="principalSponsorGuide" hidden>
             <p class="guest-guide__dress"><b>Color Theme:</b> Dark Grey</p>
@@ -801,7 +807,6 @@
           <br><br>
           To help us create the celebration we have planned, we have implemented a strict no-under-16 policy for the reception due to alcohol being served. Guests who are 16 and 17 years old are welcome to attend and celebrate with us, but please note that alcohol will only be served to guests who are 18 years of age and above.
         </div>
-        <p class="guest-guide__notice">Strictly no white allowed</p>
       </article>
     </section>
   </main>
@@ -816,6 +821,16 @@
     const principalSponsorGuide = document.getElementById('principalSponsorGuide');
     const guestGuideTitle = document.getElementById('guestGuideTitle');
     const sponsorAttire = document.getElementById('sponsorAttire');
+    const guestAttire = document.getElementById('guestAttire');
+    const guestAttireImage = guestAttire.querySelector('img');
+
+    if (guestAttireImage.complete && guestAttireImage.naturalWidth > 0) {
+      guestAttire.hidden = false;
+    } else {
+      guestAttireImage.addEventListener('load', () => {
+        guestAttire.hidden = false;
+      }, { once: true });
+    }
 
     const guestParams = new URLSearchParams(window.location.search);
     const personalizedName = guestParams.get('name') || guestParams.get('guest');
