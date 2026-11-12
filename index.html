@@ -752,7 +752,7 @@
         <div class="details">
           <div class="detail"><span class="detail__label">Monday</span><strong>April 26</strong><small>Two thousand twenty-seven</small></div>
           <div class="divider" aria-hidden="true"></div>
-          <div class="detail"><span class="detail__label">Ceremony</span><strong>Our Lady of Montserrat Parish</strong><small>Call time: 3:15 PM · Starts at 4:00 PM</small><small>Gran Plains, Jaro</small></div>
+          <div class="detail"><span class="detail__label">Ceremony</span><strong>Our Lady of Montserrat Parish</strong><small id="ceremonyTime">Call time: 3:15 PM · Starts at 4:00 PM</small><small>Gran Plains, Jaro</small></div>
           <div class="divider" aria-hidden="true"></div>
           <div class="detail"><span class="detail__label">Reception</span><strong>District 21 Hotel · Titanium Hall</strong><small>4th Floor · Following the ceremony · 6:30 PM</small></div>
         </div>
@@ -817,6 +817,7 @@
     const guestRole = document.getElementById('guestRole');
     const guestName = document.getElementById('guestName');
     const guestPart = document.getElementById('guestPart');
+    const ceremonyTime = document.getElementById('ceremonyTime');
     const regularGuestGuide = document.getElementById('regularGuestGuide');
     const principalSponsorGuide = document.getElementById('principalSponsorGuide');
     const guestGuideTitle = document.getElementById('guestGuideTitle');
@@ -838,6 +839,7 @@
     const inviteMode = (guestParams.get('group') || guestParams.get('audience') || guestParams.get('mode') || '').toLowerCase();
     const hasSpecificGuestContext = Boolean(personalizedName || personalizedRole || inviteMode);
     const isPrincipalSponsors = ['principal-sponsors', 'sponsors'].includes(inviteMode) || (!hasSpecificGuestContext && !guestParams.has('group') && !guestParams.has('audience') && !guestParams.has('mode'));
+    const isRegularGuestInvite = ['guest', 'guests', 'general', 'regular'].includes(inviteMode) || (hasSpecificGuestContext && !isPrincipalSponsors);
 
     if (isPrincipalSponsors) {
       scene.classList.add('is-principal-sponsors');
@@ -848,6 +850,13 @@
       guestGuideTitle.textContent = 'For Principal Sponsors';
       guestGuideTitle.classList.add('guest-guide__title--sponsor');
       sponsorAttire.hidden = false;
+      ceremonyTime.textContent = 'Call time: 3:15 PM · Starts at 4:00 PM';
+    } else {
+      ceremonyTime.textContent = 'Starts at 4:00 PM';
+    }
+
+    if (isRegularGuestInvite && !isPrincipalSponsors) {
+      ceremonyTime.textContent = 'Starts at 4:00 PM';
     }
 
     if (personalizedName && personalizedRole) {
