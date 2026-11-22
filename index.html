@@ -597,7 +597,7 @@
       filter: drop-shadow(0 3px 2px rgba(37, 33, 8, .45));
     }
     .curtain-fringe { position: absolute; bottom: 0; z-index: 4; width: 100%; height: 42px; background: repeating-linear-gradient(90deg, #b28b3e 0 3px, #f1d27f 3px 5px, #6c5524 5px 8px, transparent 8px 16px); opacity: .76; filter: drop-shadow(0 -2px 3px rgba(9, 22, 4, .6)); }
-    .curtain-fringe::after { content: ''; position: absolute; top: 20px; right: 0; left: 0; height: 22px; background: repeating-linear-gradient(105deg, transparent 0 6px, rgba(244, 211, 125, .9) 7px 9px, transparent 10px 16px); }
+    .curtain-fringe::after { content: ''; position: absolute; top: 20px; right: 0; left: 0; height: 22px; background: repeating-linear-gradient(105deg, transparent 0  6px, rgba(244, 211, 125, .9) 7px 9px, transparent 10px 16px); }
     .curtain-tieback { position: absolute; top: 54%; z-index: 6; width: 50px; height: 32px; opacity: 0; pointer-events: none; transform: translateY(-50%) scale(.5); transition: opacity .5s ease, transform .9s cubic-bezier(.2, .8, .2, 1); }
     .curtain-tieback::before { content: ''; position: absolute; top: 0; width: 39px; height: 39px; border: 3px solid #f0cf78; border-radius: 50%; background: radial-gradient(circle at 34% 28%, #fff4bc 0 3px, #bd8332 4px 9px, #5f742b 10px 16px); box-shadow: 0 3px 10px rgba(20, 32, 6, .6), 0 0 16px rgba(243, 206, 116, .48); }
     .curtain-tieback::after { content: ''; position: absolute; top: 28px; width: 28px; height: 85px; border: solid #d6a84e; border-width: 0 4px 4px 0; border-radius: 0 0 75% 0; filter: drop-shadow(2px 3px 2px rgba(20, 28, 5, .48)); }
@@ -708,6 +708,10 @@
     @media (prefers-reduced-motion: reduce) {
       .curtain, .envelope, .envelope__flap, .envelope__letter, .invitation, .intro, .invitation__paper { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
     }
+
+    .virtual-attendance { position: relative; margin: 27px auto 0; padding: 16px 12px; border-top: 1px solid rgba(201, 149, 82, .4); border-bottom: 1px solid rgba(201, 149, 82, .4); color: #685055; font-size: 12px; line-height: 1.75; }
+    .virtual-attendance[hidden] { display: none; }
+    .virtual-attendance__title { margin: 0 0 6px; color: var(--wine); font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -807,6 +811,11 @@
           <br><br>
           To help us create the celebration we have planned, we have implemented a strict no-under-16 policy for the reception due to alcohol being served. Guests who are 16 and 17 years old are welcome to attend and celebrate with us, but please note that alcohol will only be served to guests who are 18 years of age and above.
         </div>
+
+        <div class="virtual-attendance" id="virtualAttendance" hidden>
+          <p class="virtual-attendance__title">If you are not able to attend</p>
+          <p>We'd still love for you to be part of our special day! A Zoom meeting link will be sent three (3) days before the wedding so you can celebrate with us virtually, wherever you are. 🤍</p>
+        </div>
       </article>
     </section>
   </main>
@@ -824,6 +833,7 @@
     const sponsorAttire = document.getElementById('sponsorAttire');
     const guestAttire = document.getElementById('guestAttire');
     const guestAttireImage = guestAttire.querySelector('img');
+    const virtualAttendance = document.getElementById('virtualAttendance');
 
     if (guestAttireImage.complete && guestAttireImage.naturalWidth > 0) {
       guestAttire.hidden = false;
@@ -837,6 +847,8 @@
     const personalizedName = guestParams.get('name') || guestParams.get('guest');
     const personalizedRole = guestParams.get('role') || guestParams.get('part');
     const inviteMode = (guestParams.get('group') || guestParams.get('audience') || guestParams.get('mode') || '').toLowerCase();
+    const virtualFlag = (guestParams.get('virtual') || guestParams.get('zoom') || '').toLowerCase();
+    const isVirtualGuest = ['1', 'true', 'yes', 'canada', 'online', 'virtual'].includes(virtualFlag);
     const hasSpecificGuestContext = Boolean(personalizedName || personalizedRole || inviteMode);
     const isPrincipalSponsors = ['principal-sponsors', 'sponsors'].includes(inviteMode) || (!hasSpecificGuestContext && !guestParams.has('group') && !guestParams.has('audience') && !guestParams.has('mode'));
     const isRegularGuestInvite = ['guest', 'guests', 'general', 'regular'].includes(inviteMode) || (hasSpecificGuestContext && !isPrincipalSponsors);
@@ -851,6 +863,7 @@
       guestGuideTitle.classList.add('guest-guide__title--sponsor');
       sponsorAttire.hidden = false;
       ceremonyTime.textContent = 'Call time: 3:15 PM · Starts at 4:00 PM';
+      virtualAttendance.hidden = !(isPrincipalSponsors || isVirtualGuest);
     } else {
       ceremonyTime.textContent = 'Starts at 4:00 PM';
     }
