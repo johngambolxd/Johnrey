@@ -756,9 +756,9 @@
         <div class="details">
           <div class="detail"><span class="detail__label">Monday</span><strong>April 26</strong><small>Two thousand twenty-seven</small></div>
           <div class="divider" aria-hidden="true"></div>
-          <div class="detail"><span class="detail__label">Ceremony</span><strong>Our Lady of Montserrat Parish</strong><small id="ceremonyTime">Call time: 3:15 PM · Starts at 4:00 PM</small><small>Gran Plains, Jaro</small></div>
+          <div class="detail"><span class="detail__label">Ceremony</span><strong>Our Lady of Montserrat Parish</strong><small id="ceremonyTime">Call time: 2:15 PM · Starts at 3:00 PM</small><small>Gran Plains, Jaro</small></div>
           <div class="divider" aria-hidden="true"></div>
-          <div class="detail"><span class="detail__label">Reception</span><strong>District 21 Hotel · Titanium Hall</strong><small>4th Floor · Following the ceremony · 6:30 PM</small></div>
+          <div class="detail"><span class="detail__label">Reception</span><strong>District 21 Hotel · Titanium Hall</strong><small>4th Floor · Following the ceremony · 5:30 PM</small></div>
         </div>
         <p class="rsvp"><b>We look forward to celebrating with you</b><br>Please join us for this special day</p>
         <section class="guest-guide" aria-label="Guest dress code and color motif">
@@ -864,14 +864,15 @@
       guestGuideTitle.textContent = 'For Principal Sponsors';
       guestGuideTitle.classList.add('guest-guide__title--sponsor');
       sponsorAttire.hidden = false;
-      ceremonyTime.textContent = 'Call time: 3:15 PM · Starts at 4:00 PM';
+      ceremonyTime.textContent = 'Call time: 2:15 PM · Starts at 3:00 PM';
       virtualAttendance.hidden = !isVirtualGuest;
     } else {
-      ceremonyTime.textContent = 'Starts at 4:00 PM';
+      ceremonyTime.textContent = 'Starts at 3:00 PM';
+      virtualAttendance.hidden = !isVirtualGuest;
     }
 
     if (isRegularGuestInvite && !isPrincipalSponsors) {
-      ceremonyTime.textContent = 'Starts at 4:00 PM';
+      ceremonyTime.textContent = 'Starts at 3:00 PM';
     }
 
     if (personalizedName && personalizedRole) {
